@@ -1,0 +1,5 @@
+check process gogs
+  with pidfile /var/vcap/sys/run/gogs/gogs.pid
+  start program "/var/vcap/jobs/gogs/bin/monit_debugger gogs_ctl '/var/vcap/jobs/gogs/bin/gogs_ctl start'"
+  stop program "/var/vcap/jobs/gogs/bin/monit_debugger gogs_ctl '/var/vcap/jobs/gogs/bin/gogs_ctl stop'"
+  group vcap
