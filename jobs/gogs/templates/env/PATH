@@ -1,0 +1,1 @@
+/var/vcap/packages/git/bin:/usr/bin:$PATH

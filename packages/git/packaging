@@ -1,0 +1,17 @@
+set -e -x
+
+
+apt-get install automake libexpat1-dev libz-dev gettext curl -y
+
+export VERSION=2.3.0
+
+cd git
+
+tar -zxf git-v${VERSION}.tar.gz
+
+cd git-${VERSION}
+
+make configure
+./configure  --prefix=${BOSH_INSTALL_TARGET} CFLAGS="${CFLAGS} -static" NO_OPENSSL=1 NO_CURL=1
+make
+make install

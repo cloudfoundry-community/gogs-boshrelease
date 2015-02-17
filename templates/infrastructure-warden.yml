@@ -12,19 +12,11 @@ update:
   update_watch_time: 1000-30000
 
 jobs:
-  - name: gogs_leader_z1
+  - name: gogs_z1
     instances: 1
     networks:
       - name: gogs1
         static_ips: (( static_ips(0) ))
-  - name: gogs_z1
-    instances: 2
-    networks:
-      - name: gogs1
-        static_ips: ~
-    properties:
-      gogs:
-        leader_address: (( jobs.gogs_leader_z1.networks.gogs1.static_ips.[0] ))
 
 compilation:
   cloud_properties:

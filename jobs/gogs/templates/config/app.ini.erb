@@ -1,0 +1,35 @@
+
+RUN_USER = vcap
+RUN_MODE = prod
+
+[repository]
+ROOT = /var/vcap/store/gogs/repositories
+SCRIPT_TYPE = bash
+
+[server]
+DOMAIN = <%= spec.networks.send(properties.networks.apps).ip %>
+HTTP_PORT = <%= p("gogs.port") %>
+
+<% db = p("databases.databases").find { |db| db["tag"] == "gogs" } %>
+<% db_role = p("databases.roles").find { |role| role["tag"] == "gogs" } %>
+
+[database]
+; Either "mysql", "postgres" or "sqlite3", it's your choice
+DB_TYPE = postgres
+HOST = <%= p("databases.address") %>:<%= p("databases.port") %>
+NAME = <%= db["name"] %>
+USER = <%= db_role["name"] %>
+PASSWD = <%= db_role["password"] %>
+; For "postgres" only, either "disable", "require" or "verify-full"
+SSL_MODE = disable
+
+[session]
+PROVIDER = file
+PROVIDER_CONFIG = /var/vcap/store/gogs/sessions
+
+[picture]
+AVATAR_UPLOAD_PATH = /var/vcap/store/gogs/avatars
+
+
+[attachment]
+PATH = /var/vcap/store/gogs/data/attachments

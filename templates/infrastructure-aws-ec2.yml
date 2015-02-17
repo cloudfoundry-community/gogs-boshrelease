@@ -9,19 +9,11 @@ meta:
     version: latest
 
 jobs:
-  - name: gogs_leader_z1
+  - name: gogs_z1
     instances: 1
     networks:
       - name: gogs1
     persistent_disk: (( meta.persistent_disk ))
-  - name: gogs_z1
-    instances: 2
-    networks:
-      - name: gogs1
-    persistent_disk: (( meta.persistent_disk ))
-    properties:
-      gogs:
-        leader_address: (( "0.gogs-leader-z1.gogs1." meta.environment "." meta.dns_root ))
 
 compilation:
   cloud_properties:

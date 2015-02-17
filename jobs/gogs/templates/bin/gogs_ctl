@@ -17,7 +17,45 @@ case $1 in
     # store pid in $PIDFILE
     echo $$ > $PIDFILE
 
-    exec chpst -u vcap:vcap gogs \
+    mkdir -p /var/vcap/store/gogs/{home,repositories,avatars,attachments,sessions,config}
+
+    if [ ! -f "/var/vcap/store/gogs/config/app.ini" ]
+    then
+      cp /var/vcap/jobs/gogs/config/app.ini /var/vcap/store/gogs/config/app.ini
+      echo "export PATH=/var/vcap/packages/git/bin:$PATH" >> /home/vcap/.bashrc
+    fi
+
+    # ssh magic to get be able to clone via ssh
+    if [ ! -f "/var/vcap/store/gogs/home/.ssh/authorized_keys" ]
+    then
+      mkdir -p /home/vcap/.ssh
+      mkdir -p /var/vcap/store/gogs/home/.ssh
+      touch /var/vcap/store/gogs/home/.ssh/authorized_keys
+      ln /var/vcap/store/gogs/home/.ssh/authorized_keys /home/vcap/.ssh/authorized_keys
+    fi
+
+    # Fix if vm has been destroyed and disk is remounted
+    if [ ! -f "/home/vcap/.ssh/authorized_keys" ]
+    then
+      mkdir -p /home/vcap/.ssh
+      ln /var/vcap/store/gogs/home/.ssh/authorized_keys /home/vcap/.ssh/authorized_keys
+    fi
+
+    # Put git in /usr/bin so ssh can use
+    if [ ! -f "/usr/bin/git" ]
+    then
+      cp /var/vcap/packages/git/bin/* /usr/bin/
+    fi
+
+    chown -R vcap:vcap /var/vcap/store/gogs
+    chown -R vcap:vcap /home/vcap/.ssh
+
+    cd /var/vcap/packages/gogs
+    chown -R vcap:vcap .
+
+    exec chpst -u vcap:vcap -e /var/vcap/jobs/gogs/env \
+         /var/vcap/packages/gogs/gogs web \
+         --config /var/vcap/store/gogs/config/app.ini \
          >>$LOG_DIR/$JOB_NAME.stdout.log \
          2>>$LOG_DIR/$JOB_NAME.stderr.log
 

@@ -1,4 +1,5 @@
 # BOSH Release for gogs
+One of the fastest ways to get [gogs](http://gogs.io/) running on any infrastructure is to deploy this bosh release.
 
 ## Usage
 
@@ -15,37 +16,5 @@ For [bosh-lite](https://github.com/cloudfoundry/bosh-lite), you can quickly crea
 
 ```
 templates/make_manifest warden
-bosh -n deploy
-```
-
-For AWS EC2, create a single VM:
-
-```
-templates/make_manifest aws-ec2
-bosh -n deploy
-```
-
-### Override security groups
-
-For AWS & Openstack, the default deployment assumes there is a `default` security group. If you wish to use a different security group(s) then you can pass in additional configuration when running `make_manifest` above.
-
-Create a file `my-networking.yml`:
-
-``` yaml
----
-networks:
-  - name: gogs1
-    type: dynamic
-    cloud_properties:
-      security_groups:
-        - gogs
-```
-
-Where `- gogs` means you wish to use an existing security group called `gogs`.
-
-You now suffix this file path to the `make_manifest` command:
-
-```
-templates/make_manifest openstack-nova my-networking.yml
 bosh -n deploy
 ```

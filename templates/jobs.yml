@@ -9,25 +9,35 @@ update:
   serial: false
 
 jobs:
-  - name: gogs_leader_z1
-    template: gogs
-    instances: 0
-    resource_pool: small_z1
-    networks: (( merge ))
-    persistent_disk: 0
-    properties: {}
   - name: gogs_z1
-    template: gogs
+    templates:
+    - name: gogs
+      release: gogs
+    - name: postgres
+      release: gogs
     instances: 0
     resource_pool: small_z1
     networks: (( merge ))
     persistent_disk: 0
-    update:
-      canaries: 10
     properties:
-      gogs:
-        leader_address: (( merge ))
+      networks:
+        apps: gogs1
+
 
 networks: (( merge ))
 
-properties: {}
+properties:
+  gogs:
+    port: 8080
+  databases:
+    db_scheme: postgres
+    address: (( jobs.gogs_z1.networks.gogs1.static_ips.[0] ))
+    port: 5524
+    roles:
+      - tag: gogs
+        name: gogs
+        password: gogs
+    databases:
+      - tag: gogs
+        name: gogsdb
+        citext: true

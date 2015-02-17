@@ -1,13 +1,31 @@
 ---
 name: gogs
-packages: []
+packages:
+  - gogs
+  - git
 templates:
   bin/monit_debugger: bin/monit_debugger
   bin/gogs_ctl: bin/gogs_ctl
-  config/gogs.conf.erb: config/gogs.conf
+  config/app.ini.erb: config/app.ini
+  env/USER: env/USER
+  env/PATH: env/PATH
+  env/HOME: env/HOME
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
 properties:
-  gogs.leader_address:
-    description: Hostname/IP to the leader/master of the cluster
+  networks.apps:
+    description: "Used to get our IP address"
+
+  gogs.port:
+    description: port that gogs runs on
+    default: 8080
+
+  databases.port:
+    description: "The database port"
+  databases.address:
+    description: "The database address"
+  databases.databases:
+    description: "A list of databases and associated properties to create"
+  databases.roles:
+    description: "A list of database roles and associated properties to create"
