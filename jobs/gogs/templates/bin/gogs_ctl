@@ -25,20 +25,11 @@ case $1 in
       echo "export PATH=/var/vcap/packages/git/bin:$PATH" >> /home/vcap/.bashrc
     fi
 
-    # ssh magic to get be able to clone via ssh
-    if [ ! -f "/var/vcap/store/gogs/home/.ssh/authorized_keys" ]
-    then
-      mkdir -p /home/vcap/.ssh
-      mkdir -p /var/vcap/store/gogs/home/.ssh
-      touch /var/vcap/store/gogs/home/.ssh/authorized_keys
-      ln /var/vcap/store/gogs/home/.ssh/authorized_keys /home/vcap/.ssh/authorized_keys
-    fi
+    usermod -d /var/vcap/store/gogs/home vcap
 
-    # Fix if vm has been destroyed and disk is remounted
-    if [ ! -f "/home/vcap/.ssh/authorized_keys" ]
+    if ! grep -q "^AuthorizedKeysFile %h/.ssh/authorized_keys" /etc/ssh/sshd_config
     then
-      mkdir -p /home/vcap/.ssh
-      ln /var/vcap/store/gogs/home/.ssh/authorized_keys /home/vcap/.ssh/authorized_keys
+      echo "AuthorizedKeysFile %h/.ssh/authorized_keys" >> /etc/ssh/sshd_config
     fi
 
     # Put git in /usr/bin so ssh can use
@@ -48,7 +39,6 @@ case $1 in
     fi
 
     chown -R vcap:vcap /var/vcap/store/gogs
-    chown -R vcap:vcap /home/vcap/.ssh
 
     cd /var/vcap/packages/gogs
     chown -R vcap:vcap .
