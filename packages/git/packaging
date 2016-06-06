@@ -1,6 +1,6 @@
 set -e -x
 
-
+apt-get update -y
 apt-get install automake libexpat1-dev libz-dev gettext curl -y
 
 export VERSION=2.3.0
