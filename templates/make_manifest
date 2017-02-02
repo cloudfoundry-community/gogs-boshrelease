@@ -8,8 +8,9 @@ STEMCELL_OS=${STEMCELL_OS:-ubuntu}
 infrastructure=$1
 
 if [ "$infrastructure" != "aws-ec2" ] && \
-    [ "$infrastructure" != "warden" ] ; then
-  echo "usage: ./make_manifest <aws-ec2|warden>"
+    [ "$infrastructure" != "warden" ] && \
+    [ "$infrastructure" != "vsphere" ]; then
+  echo "usage: ./make_manifest <aws-ec2|vsphere|warden>"
   exit 1
 fi
 
@@ -20,10 +21,12 @@ DIRECTOR_UUID=$(echo "$BOSH_STATUS" | grep UUID | awk '{print $2}')
 DIRECTOR_CPI=$(echo "$BOSH_STATUS" | grep CPI | awk '{print $2}')
 DIRECTOR_NAME=$(echo "$BOSH_STATUS" | grep Name | awk '{print $2}')
 NAME=$template_prefix-$infrastructure
+STEMCELL_ARCH=""
 
 
 if [[ $infrastructure = "warden" ]]; then
   DIRECTOR_CPI="warden"
+  STEMCELL_ARCH="warden"
 fi
 
 if [[ $infrastructure = "aws-ec2" ]]; then
@@ -31,7 +34,17 @@ if [[ $infrastructure = "aws-ec2" ]]; then
     echo "Not targeting an AWS BOSH. Please use 'bosh target' before running this script."
     exit 1
   fi
+  STEMCELL_ARCH="aws"
 fi
+
+if [[ $infrastructure = "vsphere" ]]; then
+  if [[ $DIRECTOR_CPI != "vsphere_cpi" ]]; then
+    echo "Not targeting a vSphere BOSH. Please use 'bosh target' before running this script."
+    exit 1
+  fi
+  STEMCELL_ARCH="vsphere"
+fi
+
 
 function latest_uploaded_stemcell {
   echo $(bosh stemcells | grep bosh | grep $STEMCELL_OS | awk -F'|' '{ print $2, $3 }' | sort -nr -k2 | head -n1 | awk '{ print $1 }')
@@ -41,7 +54,8 @@ STEMCELL=${STEMCELL:-$(latest_uploaded_stemcell)}
 if [[ "${STEMCELL}X" == "X" ]]; then
   echo
   echo "Uploading latest $DIRECTOR_CPI/$STEMCELL_OS stemcell..."
-  STEMCELL_URL=$(bosh public stemcells --full | grep $DIRECTOR_CPI | grep $STEMCELL_OS | sort -nr | head -n1 | awk '{ print $4 }')
+  STEMCELL_URL=$(bosh public stemcells --full | grep $STEMCELL_ARCH | grep $STEMCELL_OS | sort -nr | head -n1 | awk '{ print $4 }')
+  echo "stemcell url is: $STEMCELL_URL"
   bosh upload stemcell $STEMCELL_URL
 fi
 STEMCELL=${STEMCELL:-$(latest_uploaded_stemcell)}
