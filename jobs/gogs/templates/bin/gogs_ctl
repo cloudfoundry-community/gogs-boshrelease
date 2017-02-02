@@ -22,7 +22,11 @@ case $1 in
     if [ ! -f "/var/vcap/store/gogs/config/app.ini" ]
     then
       cp /var/vcap/jobs/gogs/config/app.ini /var/vcap/store/gogs/config/app.ini
-      echo "export PATH=/var/vcap/packages/git/bin:$PATH" >> /home/vcap/.bashrc
+    fi
+
+    if [ ! -f "/var/vcap/store/gogs/home/.bashrc" ]
+    then
+      echo "export PATH=/var/vcap/packages/git/bin:$PATH" >> /var/vcap/store/gogs/home/.bashrc
     fi
 
     usermod -d /var/vcap/store/gogs/home vcap

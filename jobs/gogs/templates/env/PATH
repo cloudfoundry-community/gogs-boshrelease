@@ -1,1 +1,1 @@
-/var/vcap/packages/git/bin:/usr/bin:$PATH
+/var/vcap/packages/git/bin:/usr/bin:/bin:$PATH
