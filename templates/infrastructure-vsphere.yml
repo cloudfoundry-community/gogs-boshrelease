@@ -2,7 +2,6 @@ meta:
   environment: (( merge ))
   dns_root: (( merge ))
   persistent_disk: 4096
-
   stemcell:
     name: bosh-vsphere-esxi-ubuntu
     version: latest
@@ -12,8 +11,7 @@ jobs:
     instances: 1
     networks:
     - name: gogs1
-      static_ips:
-      - (( static_ips(0) ))
+      static_ips: (( static_ips(0) ))
     persistent_disk: (( meta.persistent_disk ))
 
 compilation:

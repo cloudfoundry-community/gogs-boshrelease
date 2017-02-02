@@ -1,10 +1,9 @@
 set -e -x
 
-export VERSION=0.5.13
+export VERSION=0.9.113
 
-unzip gogs/gogs-v${VERSION}-linux-amd64.zip
+tar -zxvf gogs/gogs_v${VERSION}_linux_amd64.tar.gz
 cd gogs
-rm gogs-v${VERSION}-linux-amd64.zip
 chmod +x gogs
 
 cp -R * ${BOSH_INSTALL_TARGET}
