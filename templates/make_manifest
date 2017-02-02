@@ -55,7 +55,6 @@ if [[ "${STEMCELL}X" == "X" ]]; then
   echo
   echo "Uploading latest $DIRECTOR_CPI/$STEMCELL_OS stemcell..."
   STEMCELL_URL=$(bosh public stemcells --full | grep $STEMCELL_ARCH | grep $STEMCELL_OS | sort -nr | head -n1 | awk '{ print $4 }')
-  echo "stemcell url is: $STEMCELL_URL"
   bosh upload stemcell $STEMCELL_URL
 fi
 STEMCELL=${STEMCELL:-$(latest_uploaded_stemcell)}
