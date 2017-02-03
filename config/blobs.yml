@@ -11,3 +11,7 @@ postgresql/postgresql-9.4.1.tar.gz:
   object_id: e7b71326-e4a4-4253-b702-bedd2b3142a6
   sha: ea9fd6930146526369540dc2ddd38b58cfebc6aa
   size: 23004433
+gogs/gogs_v0.9.113_linux_amd64.tar.gz:
+  object_id: acd0319a-074a-48c9-bae0-6c3c1de5e995
+  sha: 3f5340870d3a61f00978549d163d973736606a97
+  size: 16857444
