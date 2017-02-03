@@ -1,0 +1,35 @@
+---
+packages:
+- name: common
+  version: 84ecf9868216afd807a99fa9bf539bfa9e5921c8
+  fingerprint: 84ecf9868216afd807a99fa9bf539bfa9e5921c8
+  sha1: 945c9790aa83f7d39e24d0e1659aa472f8adae9b
+  dependencies: []
+- name: git
+  version: 71865b5861f1b727eda54ee8f4856881bd24e86e
+  fingerprint: 71865b5861f1b727eda54ee8f4856881bd24e86e
+  sha1: df73da02b4f72c646854a80ce810b034e5089609
+  dependencies: []
+- name: gogs
+  version: 231e67ca5dee86e33af5801a9d7ab5c7ec5a33a3
+  fingerprint: 231e67ca5dee86e33af5801a9d7ab5c7ec5a33a3
+  sha1: 8be81a500d7c19ba24ff98854c7a0abaf45ca0d4
+  dependencies: []
+- name: postgres
+  version: 96f37720339f6cf2d5382ee72046ab1add301a66
+  fingerprint: 96f37720339f6cf2d5382ee72046ab1add301a66
+  sha1: 5a47ddc86892105190378fa81f17c346d5391cff
+  dependencies: []
+jobs:
+- name: gogs
+  version: 90bc57c0f2a38cd476f7a5fd6525b6f5369f9194
+  fingerprint: 90bc57c0f2a38cd476f7a5fd6525b6f5369f9194
+  sha1: 6c0806d335b9c1e01ae83b7543faeb0c13566ca0
+- name: postgres
+  version: 20e9a42637977ff968b075776a3d8e6a578b0503
+  fingerprint: 20e9a42637977ff968b075776a3d8e6a578b0503
+  sha1: a9e8104117e3872857207809206640b5b7d52d63
+commit_hash: 8426f4fd
+uncommitted_changes: true
+name: gogs
+version: '3'
