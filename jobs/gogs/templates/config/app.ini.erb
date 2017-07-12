@@ -1,5 +1,5 @@
 
-RUN_USER = vcap
+RUN_USER = git
 RUN_MODE = prod
 
 [repository]
@@ -7,20 +7,24 @@ ROOT = /var/vcap/store/gogs/repositories
 SCRIPT_TYPE = bash
 
 [server]
-DOMAIN = <%= spec.networks.send(properties.networks.apps).ip %>
+DOMAIN = <%= p("gogs.domain") %>
 HTTP_PORT = <%= p("gogs.port") %>
 
 <% db = p("databases.databases").find { |db| db["tag"] == "gogs" } %>
 <% db_role = p("databases.roles").find { |role| role["tag"] == "gogs" } %>
+ROOT_URL = https://<%= p("gogs.domain") %>/
+DISABLE_SSH = false
+SSH_PORT = 22
+SSH_ROOT_PATH = /var/vcap/store/gogs/home/.ssh
+START_SSH_SERVER = false
+OFFLINE_MODE = false
 
 [database]
-; Either "mysql", "postgres" or "sqlite3", it's your choice
 DB_TYPE = postgres
 HOST = <%= p("databases.address") %>:<%= p("databases.port") %>
 NAME = <%= db["name"] %>
 USER = <%= db_role["name"] %>
 PASSWD = <%= db_role["password"] %>
-; For "postgres" only, either "disable", "require" or "verify-full"
 SSL_MODE = disable
 
 [session]
@@ -33,3 +37,19 @@ AVATAR_UPLOAD_PATH = /var/vcap/store/gogs/avatars
 
 [attachment]
 PATH = /var/vcap/store/gogs/data/attachments
+
+[service]
+REGISTER_EMAIL_CONFIRM = false
+ENABLE_NOTIFY_MAIL     = true
+DISABLE_REGISTRATION   = true
+ENABLE_CAPTCHA         = false
+REQUIRE_SIGNIN_VIEW    = false
+
+[log]
+MODE      = file
+LEVEL     = Info
+ROOT_PATH = /var/vcap/packages/gogs/log
+
+[security]
+INSTALL_LOCK = true
+SECRET_KEY = <%= p("gogs.secret_key") %>

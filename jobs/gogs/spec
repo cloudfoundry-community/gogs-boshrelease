@@ -14,18 +14,44 @@ templates:
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
 properties:
-  networks.apps:
-    description: "Used to get our IP address"
-
+  gogs.domain:
+    description: "Domain name of your server"
+    default: ''
+    example: 'git.example.com'
   gogs.port:
-    description: port that gogs runs on
-    default: 8080
-
+    description: "Port that gogs listen on"
+    default: '8080'
+  gogs.admin:
+    description: "Admin user for gogs"
+    default: 'gogs'
+  gogs.password:
+    description: "Password for admin user"
+    default: ''
+  gogs.email:
+    description: "Email for admin account"
+    default: 'admin@example.com'
+  gogs.secret_key:
+    description: "Global secret key for your server security"
   databases.port:
     description: "The database port"
+    default: '5432'
   databases.address:
     description: "The database address"
+    default: '127.0.0.1'
   databases.databases:
     description: "A list of databases and associated properties to create"
+    default: []
+    example:
+      databases: |
+        - name: gogs
+          citext: true
+          tag: gogs
   databases.roles:
     description: "A list of database roles and associated properties to create"
+    default: []
+    example:
+      roles: |
+        - name: gogs
+          password: MyGogsPassword
+          tag: gogs
+

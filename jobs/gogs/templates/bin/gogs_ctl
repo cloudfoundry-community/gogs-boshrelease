@@ -3,11 +3,13 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
-# Setup env vars and folders for the webapp_ctl script
+# Setup env vars and folders for the gogs_ctl script
 source /var/vcap/jobs/gogs/helpers/ctl_setup.sh 'gogs'
+echo $PATH
 
 export PORT=${PORT:-5000}
 export LANG=en_US.UTF-8
+export PACKAGE_DIR=/var/vcap/packages/gogs
 
 case $1 in
 
@@ -17,19 +19,22 @@ case $1 in
     # store pid in $PIDFILE
     echo $$ > $PIDFILE
 
-    mkdir -p /var/vcap/store/gogs/{home,repositories,avatars,attachments,sessions,config}
+    mkdir -p ${STORE_DIR}/{home,repositories,avatars,attachments,sessions,config}
 
-    if [ ! -f "/var/vcap/store/gogs/config/app.ini" ]
+    if id git >/dev/null 2>&1;
     then
-      cp /var/vcap/jobs/gogs/config/app.ini /var/vcap/store/gogs/config/app.ini
+	echo "user git exists"
+    else
+	useradd -d /var/vcap/store/gogs/home -g vcap -G bosh_sshers git
     fi
+    chown -R git:vcap ${STORE_DIR}
+
+    ln -fs ${JOB_DIR}/config/app.ini ${STORE_DIR}/config/app.ini
 
     if [ ! -f "/var/vcap/store/gogs/home/.bashrc" ]
     then
       echo "export PATH=/var/vcap/packages/git/bin:$PATH" >> /var/vcap/store/gogs/home/.bashrc
     fi
-
-    usermod -d /var/vcap/store/gogs/home vcap
 
     if ! grep -q "^AuthorizedKeysFile %h/.ssh/authorized_keys" /etc/ssh/sshd_config
     then
@@ -42,12 +47,10 @@ case $1 in
       cp /var/vcap/packages/git/bin/* /usr/bin/
     fi
 
-    chown -R vcap:vcap /var/vcap/store/gogs
-
     cd /var/vcap/packages/gogs
-    chown -R vcap:vcap .
+    chown -R git:vcap .
 
-    exec chpst -u vcap:vcap -e /var/vcap/jobs/gogs/env \
+    exec chpst -u git:vcap -e /var/vcap/jobs/gogs/env \
          /var/vcap/packages/gogs/gogs web \
          --config /var/vcap/store/gogs/config/app.ini \
          >>$LOG_DIR/$JOB_NAME.stdout.log \
