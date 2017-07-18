@@ -25,15 +25,15 @@ case $1 in
     then
 	echo "user git exists"
     else
-	useradd -d /var/vcap/store/gogs/home -g vcap -G bosh_sshers git
+	useradd -d ${STORE_DIR}/home -g vcap -G bosh_sshers git
     fi
     chown -R git:vcap ${STORE_DIR}
 
     ln -fs ${JOB_DIR}/config/app.ini ${STORE_DIR}/config/app.ini
 
-    if [ ! -f "/var/vcap/store/gogs/home/.bashrc" ]
+    if [ ! -f "${STORE_DIR}/home/.bashrc" ]
     then
-      echo "export PATH=/var/vcap/packages/git/bin:$PATH" >> /var/vcap/store/gogs/home/.bashrc
+      echo "export PATH=/var/vcap/packages/git/bin:$PATH" >> ${STORE_DIR}/home/.bashrc
     fi
 
     if ! grep -q "^AuthorizedKeysFile %h/.ssh/authorized_keys" /etc/ssh/sshd_config
@@ -47,14 +47,27 @@ case $1 in
       cp /var/vcap/packages/git/bin/* /usr/bin/
     fi
 
-    cd /var/vcap/packages/gogs
+    cd ${PACKAGE_DIR}
     chown -R git:vcap .
-
-    exec chpst -u git:vcap -e /var/vcap/jobs/gogs/env \
-         /var/vcap/packages/gogs/gogs web \
-         --config /var/vcap/store/gogs/config/app.ini \
+    # Use setcap if gogs web required listen port <1024
+    listen_port=<%= p("gogs.port") %>
+    if [ $listen_port -lt 1024 ]
+    then
+	setcap 'cap_net_bind_service=+ep' ${PACKAGE_DIR}/gogs
+    fi
+    exec chpst -u git:vcap -e ${JOB_DIR}/env \
+         ${PACKAGE_DIR}/gogs web \
+         --config ${STORE_DIR}/config/app.ini \
          >>$LOG_DIR/$JOB_NAME.stdout.log \
          2>>$LOG_DIR/$JOB_NAME.stderr.log
+
+    # Create admin user for the initial
+    su git -c "${PACKAGE_DIR}/gogs admin create-user \
+		      --name <%= p('gogs.admin') %> \
+		      --password <%= p('gogs.password') %> \
+		      --email <%= p('gogs.email') %> \
+                      --admin \
+		      --config ${STORE_DIR}/config/app.ini"
 
     ;;
 

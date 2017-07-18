@@ -7,17 +7,24 @@ ROOT = /var/vcap/store/gogs/repositories
 SCRIPT_TYPE = bash
 
 [server]
+PROTOCOL= <%= p("gogs.protocol") %>
 DOMAIN = <%= p("gogs.domain") %>
 HTTP_PORT = <%= p("gogs.port") %>
 
 <% db = p("databases.databases").find { |db| db["tag"] == "gogs" } %>
 <% db_role = p("databases.roles").find { |role| role["tag"] == "gogs" } %>
-ROOT_URL = https://<%= p("gogs.domain") %>/
+ROOT_URL = <%= p("gogs.protocol")%>://<%= p("gogs.domain")%>
 DISABLE_SSH = false
 SSH_PORT = 22
 SSH_ROOT_PATH = /var/vcap/store/gogs/home/.ssh
 START_SSH_SERVER = false
 OFFLINE_MODE = false
+<% if_p("gogs.tls_cert") do %>
+CERT_FILE=/var/vcap/jobs/gogs/config/gogs.crt
+<% end -%>
+<% if_p("gogs.tls_key") do %>
+KEY_FILE=/var/vcap/jobs/gogs/config/gogs.key
+<% end -%>
 
 [database]
 DB_TYPE = postgres

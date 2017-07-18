@@ -7,6 +7,8 @@ templates:
   bin/monit_debugger: bin/monit_debugger
   bin/gogs_ctl: bin/gogs_ctl
   config/app.ini.erb: config/app.ini
+  config/gogs.crt.erb: config/gogs.crt
+  config/gogs.key.erb: config/gogs.key
   env/USER: env/USER
   env/PATH: env/PATH
   env/HOME: env/HOME
@@ -21,6 +23,9 @@ properties:
   gogs.port:
     description: "Port that gogs listen on"
     default: '8080'
+  gogs.protocol:
+    descripton: "http or https for gogs web"
+    default: 'http'
   gogs.admin:
     description: "Admin user for gogs"
     default: 'gogs'
@@ -32,6 +37,10 @@ properties:
     default: 'admin@example.com'
   gogs.secret_key:
     description: "Global secret key for your server security"
+  gogs.tls_cert:
+    description: "Certificat TLS for gogs web"
+  gogs.tls_key:
+    description: "Private key TLS for gogs web"
   databases.port:
     description: "The database port"
     default: '5432'
