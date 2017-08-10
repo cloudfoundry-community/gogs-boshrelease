@@ -2,4 +2,4 @@
 name: gogs
 dependencies:
 files:
-- gogs/**/*
+- gogs/gogs_*_linux_amd64.tar.gz

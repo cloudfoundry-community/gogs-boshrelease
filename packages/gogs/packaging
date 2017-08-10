@@ -1,8 +1,6 @@
 set -e -x
 
-export VERSION=0.11.19
-
-tar -zxvf gogs/gogs_v${VERSION}_linux_amd64.tar.gz
+tar -zxvf gogs/gogs_*_linux_amd64.tar.gz
 
 cd gogs
 rm gogs*.tar.gz
@@ -10,3 +8,4 @@ rm gogs*.tar.gz
 chmod +x gogs
 
 cp -R * ${BOSH_INSTALL_TARGET}
+
