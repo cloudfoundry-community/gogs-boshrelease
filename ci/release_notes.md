@@ -1,3 +1,1 @@
-
-# 
-Bumped https://github.com/gogits/gogs to v0.11.19
+* CI will automatically detect new gogs versions and add as latest blob
