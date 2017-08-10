@@ -9,6 +9,7 @@ To use this bosh release, first upload it to your bosh:
 ```
 git clone https://github.com/cloudfoundry-community/gogs-boshrelease.git
 cd gogs-boshrelease
+export BOSH_DEPLOYMENT=gogs
 bosh2 deploy manifests/gogs.yml
 ```
 
