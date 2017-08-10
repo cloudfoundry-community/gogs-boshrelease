@@ -31,7 +31,6 @@ properties:
     default: 'gogs'
   gogs.password:
     description: "Password for admin user"
-    default: ''
   gogs.email:
     description: "Email for admin account"
     default: 'admin@example.com'
@@ -41,9 +40,10 @@ properties:
     description: "Certificat TLS for gogs web"
   gogs.tls_key:
     description: "Private key TLS for gogs web"
+
   databases.port:
     description: "The database port"
-    default: '5432'
+    default: 5432
   databases.address:
     description: "The database address"
     default: '127.0.0.1'
@@ -63,4 +63,3 @@ properties:
         - name: gogs
           password: MyGogsPassword
           tag: gogs
-

@@ -1,0 +1,6 @@
+---
+- type: replace
+  path: /releases/name=gogs
+  value:
+    name: gogs
+    version: latest

@@ -15,16 +15,35 @@ packages:
 properties:
   databases.db_scheme:
     description: "The database scheme"
+    default: postgres
   databases.port:
     description: "The database port"
+    default: 5432
   databases.address:
     description: "The database address"
+    default: '127.0.0.1'
+
   databases.databases:
     description: "A list of databases and associated properties to create"
+    default: []
+    example:
+      databases: |
+        - name: gogs
+          citext: true
+          tag: gogs
   databases.roles:
     description: "A list of database roles and associated properties to create"
+    default: []
+    example:
+      roles: |
+        - name: gogs
+          password: MyGogsPassword
+          tag: gogs
+
   databases.max_connections:
     description: "Maximum number of database connections"
+    default: 500
+
   databases.log_line_prefix:
     description: "The postgres `printf` style string that is output at the beginning of each log line"
     default: "%m: "
