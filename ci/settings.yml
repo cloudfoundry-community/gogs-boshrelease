@@ -1,0 +1,31 @@
+---
+meta:
+  name:    gogs
+  target:  sw
+  url:     https://ci.starkandwayne.com
+
+  initial_version: 5.0.0
+
+  bosh-lite:
+    target: https://10.58.111.49:25555
+    username: (( vault "secret/bosh-lites/lite49/users/admin:username" ))
+    password: (( vault "secret/bosh-lites/lite49/users/admin:password" ))
+    cacert:   (( vault "secret/bosh-lites/lite49/certs:rootCA.pem" ))
+
+  aws:
+    access_key: (( vault "secret/aws/cfcommunity:access" ))
+    secret_key: (( vault "secret/aws/cfcommunity:secret" ))
+
+  github:
+    owner:  cloudfoundry-community
+    repo:   gogs-boshrelease
+    branch: master
+    private_key:  (( vault "secret/pipelines/shared/github:private" ))
+    access_token: (( vault "secret/pipelines/shared/github:token" ))
+
+  slack:
+    webhook: "not-implemented"
+    # webhook: (( vault "secret/pipelines/gogs-boshrelease/slack:webhook" ))
+    channel: '#gogs'
+    blob_success:  '(( concat "$BUILD_PIPELINE_NAME: New version of $BUILD_JOB_NAME was detected, and updated in master. <" meta.url "/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME| Cut a new release?>" ))'
+    blob_failure:  '(( concat "$BUILD_PIPELINE_NAME: :airplane_arriving: <" meta.url "/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME| Failed to update the blob for $BUILD_JOB_NAME>" ))'
