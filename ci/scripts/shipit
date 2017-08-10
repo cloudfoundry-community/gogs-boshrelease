@@ -62,6 +62,7 @@ header "Create final release..."
 bosh2 -n create-release --final --version "${VERSION}"
 bosh2 -n create-release releases/$RELEASE_NAME/$RELEASE_NAME-$VERSION.yml \
               --tarball releases/$RELEASE_NAME/$RELEASE_NAME-$VERSION.tgz
+cd -
 
 RELEASE_TGZ=$REPO_ROOT/releases/$RELEASE_NAME/$RELEASE_NAME-$VERSION.tgz
 export SHA1=$(sha1sum $RELEASE_TGZ | head -n1 | awk '{print $1}')
