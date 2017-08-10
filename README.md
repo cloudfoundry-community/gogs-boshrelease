@@ -2,6 +2,10 @@
 
 One of the fastest ways to get [gogs](http://gogs.io/) running on any infrastructure is to deploy this bosh release.
 
+* [Concourse CI](https://ci.starkandwayne.com/teams/main/pipelines/gogs-boshrelease?groups=gogs-boshrelease)
+* Pull requests will be automatically tested against a bosh-lite (see `testflight-pr` job)
+* New versions of [gogs](http://gogs.io/) will be automatically added as the latest blob
+
 ## Usage
 
 To use this bosh release, first upload it to your bosh:
