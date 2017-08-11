@@ -77,7 +77,7 @@ jobs:
             BOSH_CLIENT_SECRET:   (( grab meta.bosh-lite.password ))
             BOSH_DEPLOYMENT:      (( grab meta.bosh-lite.deployment ))
             TEST_ERRAND:          (( grab meta.test-errand || ~ ))
-            base_manifest:        manifests/gogs.yml
+            MANIFEST_PATH:        (( concat "manifests/" meta.name ".yml" ))
       on_failure:
         put: notify
         params:
@@ -116,7 +116,7 @@ jobs:
             BOSH_CLIENT_SECRET:   (( grab meta.bosh-lite.password ))
             BOSH_DEPLOYMENT:      (( grab meta.bosh-lite.deployment-pr ))
             TEST_ERRAND:          (( grab meta.test-errand || ~ ))
-            base_manifest:        manifests/gogs.yml
+            MANIFEST_PATH:        (( concat "manifests/" meta.name ".yml" ))
         on_success:
           put: git-pull-requests
           params:
@@ -233,6 +233,7 @@ jobs:
             REPO_OUT:     pushme
             BRANCH:       (( grab meta.github.branch ))
             GITHUB_OWNER: (( grab meta.github.owner ))
+            MANIFEST_PATH: (( concat "manifests/" meta.name ".yml" ))
 
             AWS_ACCESS_KEY:       (( grab meta.aws.access_key ))
             AWS_SECRET_KEY:       (( grab meta.aws.secret_key ))

@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+# ci/scripts/testflight
+#
+# Script for testing a BOSH release using `bosh2`
+#
+# author:  James Hunt <james@niftylogic.com>, Dr Nic Williams <drnicwilliams@gmail.com>
 
 header() {
 	echo
@@ -12,13 +18,14 @@ header() {
 
 set -e
 
-export BOSH_ENVIRONMENT=${BOSH_ENVIRONMENT:?required}
-export BOSH_CA_CERT=${BOSH_CA_CERT:?required}
-export BOSH_CLIENT=${BOSH_CLIENT:?required}
-export BOSH_CLIENT_SECRET=${BOSH_CLIENT_SECRET:?required}
-export BOSH_DEPLOYMENT=${BOSH_DEPLOYMENT:?required}
+: ${BOSH_ENVIRONMENT:?required}
+: ${BOSH_CA_CERT:?required}
+: ${BOSH_CLIENT:?required}
+: ${BOSH_CLIENT_SECRET:?required}
+: ${BOSH_DEPLOYMENT:?required}
+: ${MANIFEST_PATH:?required}
 
-cd ${REPO_ROOT}
+cd ${REPO_ROOT:?required}
 header "Pulling in any git submodules..."
 git submodule update --init --recursive --force
 
@@ -36,7 +43,7 @@ header "Choosing cloud-config options"
 vm_type=$(bosh2 int <(bosh2 cloud-config) --path /vm_types/0/name)
 disk_type=$(bosh2 int <(bosh2 cloud-config) --path /disk_types/0/name)
 network=$(bosh2 int <(bosh2 cloud-config) --path /networks/0/name)
-ig_name=gogs
+ig_name=${ig_name:-$release_name}
 
 mkdir -p tmp
 
@@ -45,6 +52,12 @@ cat > tmp/deployment.yml <<YAML
 - type: replace
   path: /name
   value: ${BOSH_DEPLOYMENT}
+
+- type: replace
+  path: /releases/name=${release_name}
+  value:
+    name: ${release_name}
+    version: latest
 
 - type: replace
   path: /instance_groups/name=${ig_name}/vm_type
@@ -69,8 +82,7 @@ for op_patch_file in ${op_patch_files//,/ } ; do
 done
 
 set -x
-bosh2 int ${base_manifest:?required} \
-  -o manifests/operators/dev.yml  \
+bosh2 int ${MANIFEST_PATH} \
   -o tmp/deployment.yml    \
   ${op_patch_files_flags}            \
   --vars-store tmp/creds.yml \
@@ -79,6 +91,12 @@ bosh2 int ${base_manifest:?required} \
     > tmp/manifest.yml
 
 bosh2 -n deploy tmp/manifest.yml
+
+if [[ ! -z $TEST_ERRAND ]]; then
+	bosh2 run-errand "$TEST_ERRAND"
+else
+	echo "No test errand specified, skipping."
+fi
 
 echo
 echo "SUCCESS"

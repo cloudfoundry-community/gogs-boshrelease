@@ -24,6 +24,7 @@ header() {
 : ${BRANCH:?required}
 : ${GITHUB_OWNER:?required}
 : ${VERSION_FROM:?required}
+: ${MANIFEST_PATH:?required}
 if [[ ! -f ${VERSION_FROM} ]]; then
   echo >&2 "Version file (${VERSION_FROM}) not found.  Did you misconfigure Concourse?"
   exit 2
@@ -98,7 +99,7 @@ if [[ -z $(git config --global user.name) ]]; then
 fi
 
 (cd ${REPO_ROOT}
- $DIR/update-manifest $GITHUB_OWNER $RELEASE_NAME $VERSION $SHA1
+ $DIR/update-manifest $GITHUB_OWNER $RELEASE_NAME $VERSION $SHA1 $MANIFEST_PATH
  git merge --no-edit ${BRANCH}
  git add -A
  git status
