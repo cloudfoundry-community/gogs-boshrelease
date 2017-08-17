@@ -5,6 +5,7 @@ One of the fastest ways to get [gogs](http://gogs.io/) running on any infrastruc
 * [Concourse CI](https://ci.starkandwayne.com/teams/main/pipelines/gogs-boshrelease?groups=gogs-boshrelease)
 * Pull requests will be automatically tested against a bosh-lite (see `testflight-pr` job)
 * New versions of [gogs](http://gogs.io/) will be automatically added as the latest blob
+* Discussions and CI notifications at [#gogs-boshrelease channel](https://cloudfoundry.slack.com/messages/C6PMMSW3T/) on https://slack.cloudfoundry.org
 
 ## Usage
 
