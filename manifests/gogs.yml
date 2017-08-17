@@ -69,6 +69,6 @@ stemcells:
 
 releases:
 - name: gogs
-  version: 5.0.0
-  url: https://github.com/cloudfoundry-community/gogs-boshrelease/releases/download/v5.0.0/gogs-5.0.0.tgz
-  sha1: a317d94d35020703df49e685567fb740e3b02b37
+  version: 5.0.1
+  url: https://github.com/cloudfoundry-community/gogs-boshrelease/releases/download/v5.0.1/gogs-5.0.1.tgz
+  sha1: f956f2cccd508471decc3f02642654f31598aad7
