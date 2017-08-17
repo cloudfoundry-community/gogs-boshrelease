@@ -66,7 +66,7 @@ jobs:
         BLOB_BINARY: linux_amd64.tar.gz
         BLOB_URL:    https://github.com/gogits/gogs
         BLOB_CLEANUP:     gogs/gogs_linux_amd64.*
-        BLOB_DESTINATION: gogs/gogs_linux_amd64_${VERSION}.tar.gz
+        BLOB_DESTINATION: gogs/gogs_linux_amd64_v${VERSION}.tar.gz
         AWS_ACCESS_KEY: (( grab meta.aws.access_key ))
         AWS_SECRET_KEY: (( grab meta.aws.secret_key ))
         BRANCH:         (( grab meta.github.branch ))
