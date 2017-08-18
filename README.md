@@ -12,9 +12,11 @@ One of the fastest ways to get [gogs](http://gogs.io/) running on any infrastruc
 To use this bosh release, first upload it to your bosh:
 
 ```
+export BOSH_ENVIRONMENT=<alias>
+export BOSH_DEPLOYMENT=gogs
+
 git clone https://github.com/cloudfoundry-community/gogs-boshrelease.git
 cd gogs-boshrelease
-export BOSH_DEPLOYMENT=gogs
 bosh2 deploy manifests/gogs.yml
 ```
 
