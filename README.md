@@ -47,5 +47,5 @@ bosh deploy manifests/gogs.yml \
   -v routing-nats-deployment=$cf_deployment \
   -v "gogs-uri=gogs.$system_domain"
 
-open https://gogs.$system_domain/user/login?redirect_to=
+open https://gogs.$system_domain/user/signup
 ```
