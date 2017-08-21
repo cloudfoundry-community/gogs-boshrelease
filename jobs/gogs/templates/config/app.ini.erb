@@ -31,7 +31,7 @@ DB_TYPE = postgres
 HOST = <%= p("databases.address") %>:<%= p("databases.port") %>
 NAME = <%= db["name"] %>
 USER = <%= db_role["name"] %>
-PASSWD = <%= db_role["password"] %>
+PASSWD = `<%= db_role["password"] %>`
 SSL_MODE = disable
 
 [session]
