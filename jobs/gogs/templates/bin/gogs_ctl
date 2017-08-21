@@ -21,29 +21,25 @@ case $1 in
 
     mkdir -p ${STORE_DIR}/{home,repositories,avatars,attachments,sessions,config}
 
-    if id git >/dev/null 2>&1;
-    then
-	echo "user git exists"
+    if id git >/dev/null 2>&1; then
+      echo "user git exists"
     else
-	useradd -d ${STORE_DIR}/home -g vcap -G bosh_sshers git
+      useradd -d ${STORE_DIR}/home -g vcap -G bosh_sshers git
     fi
     chown -R git:vcap ${STORE_DIR}
 
     ln -fs ${JOB_DIR}/config/app.ini ${STORE_DIR}/config/app.ini
 
-    if [ ! -f "${STORE_DIR}/home/.bashrc" ]
-    then
+    if [ ! -f "${STORE_DIR}/home/.bashrc" ]; then
       echo "export PATH=/var/vcap/packages/git/bin:$PATH" >> ${STORE_DIR}/home/.bashrc
     fi
 
-    if ! grep -q "^AuthorizedKeysFile %h/.ssh/authorized_keys" /etc/ssh/sshd_config
-    then
+    if ! grep -q "^AuthorizedKeysFile %h/.ssh/authorized_keys" /etc/ssh/sshd_config; then
       echo "AuthorizedKeysFile %h/.ssh/authorized_keys" >> /etc/ssh/sshd_config
     fi
 
     # Put git in /usr/bin so ssh can use
-    if [ ! -f "/usr/bin/git" ]
-    then
+    if [ ! -f "/usr/bin/git" ]; then
       cp /var/vcap/packages/git/bin/* /usr/bin/
     fi
 
@@ -51,9 +47,8 @@ case $1 in
     chown -R git:vcap .
     # Use setcap if gogs web required listen port <1024
     listen_port=<%= p("gogs.port") %>
-    if [ $listen_port -lt 1024 ]
-    then
-	setcap 'cap_net_bind_service=+ep' ${PACKAGE_DIR}/gogs
+    if [ $listen_port -lt 1024 ]; then
+      setcap 'cap_net_bind_service=+ep' ${PACKAGE_DIR}/gogs
     fi
     exec chpst -u git:vcap -e ${JOB_DIR}/env \
          ${PACKAGE_DIR}/gogs web \
