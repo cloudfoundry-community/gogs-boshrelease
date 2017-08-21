@@ -18,7 +18,7 @@ templates:
 properties:
   gogs.domain:
     description: "Domain name of your server"
-    default: ''
+    default: 'localhost'
     example: 'git.example.com'
   gogs.port:
     description: "Port that gogs listen on"
