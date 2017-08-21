@@ -11,6 +11,18 @@ meta:
     username: (( vault "secret/bosh-lites/lite49/users/admin:username" ))
     password: (( vault "secret/bosh-lites/lite49/users/admin:password" ))
     cacert:   (( vault "secret/bosh-lites/lite49/certs:rootCA.pem" ))
+    cf:
+      deployment_name: cf
+      system_domain: (( vault "secret/bosh-lites/lite49/cf:system_domain" ))
+
+  manifest:
+    operator_file_paths: manifests/operators/routing.yml
+    vars: (( concat
+      "\nrouting-nats-deployment=" meta.bosh-lite.cf.deployment_name
+      "\ngogs-uri=gogs-testflight." meta.bosh-lite.cf.system_domain ))
+    vars-pr: (( concat
+      "\nrouting-nats-deployment=" meta.bosh-lite.cf.deployment_name
+      "\ngogs-uri=gogs-testflight-pr." meta.bosh-lite.cf.system_domain ))
 
   aws:
     bucket: gogs-boshrelease
