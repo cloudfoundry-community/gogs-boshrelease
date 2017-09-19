@@ -15,6 +15,8 @@ templates:
   data/properties.sh.erb: data/properties.sh
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
+  bbr/backup.sh.erb: bin/bbr/backup
+  bbr/restore.sh.erb: bin/bbr/restore
 properties:
   gogs.domain:
     description: "Domain name of your server"
