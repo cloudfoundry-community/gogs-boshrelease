@@ -19,7 +19,7 @@ case $1 in
     # store pid in $PIDFILE
     echo $$ > $PIDFILE
 
-    mkdir -p ${STORE_DIR}/{home,repositories,avatars,attachments,sessions,config}
+    mkdir -p ${STORE_DIR}/{home,repositories,avatars,attachments,sessions,config,tmp}
 
     if id git >/dev/null 2>&1; then
       echo "user git exists"
@@ -28,7 +28,7 @@ case $1 in
     fi
     chown -R git:vcap ${STORE_DIR}
 
-    ln -fs ${JOB_DIR}/config/app.ini ${STORE_DIR}/config/app.ini
+    cp -f ${JOB_DIR}/config/app.ini ${STORE_DIR}/config/app.ini && chown git:vcap ${STORE_DIR}/config/app.ini
 
     if [ ! -f "${STORE_DIR}/home/.bashrc" ]; then
       echo "export PATH=/var/vcap/packages/git/bin:$PATH" >> ${STORE_DIR}/home/.bashrc

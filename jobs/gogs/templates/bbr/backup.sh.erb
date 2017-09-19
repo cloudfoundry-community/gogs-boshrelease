@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Backup Gogs with command gogs backup
+
+set -xe
+export GOGS_CUSTOM=/var/vcap/store/gogs/config
+export GOGS_TMP=/var/vcap/store/gogs/tmp
+chown git $BBR_ARTIFACT_DIRECTORY
+cd $BBR_ARTIFACT_DIRECTORY
+sudo -E -u git /var/vcap/packages/gogs/gogs backup \
+     --config $GOGS_CUSTOM/app.ini \
+     -v \
+     -t $GOGS_TMP
