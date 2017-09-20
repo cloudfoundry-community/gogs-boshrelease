@@ -8,7 +8,7 @@ SCRIPT_TYPE = bash
 
 [server]
 PROTOCOL= <%= p("gogs.protocol") %>
-DOMAIN = <%= p("gogs.domain") %>
+DOMAIN = <%= p("gogs.domain", spec.address) %>
 HTTP_PORT = <%= p("gogs.port") %>
 
 <% db = p("databases.databases").find { |db| db["tag"] == "gogs" } %>

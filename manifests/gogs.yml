@@ -14,9 +14,20 @@ instance_groups:
     release: gogs
   - name: gogs
     release: gogs
+- name: sanity-test
+  azs: [z1]
+  instances: 1
+  lifecycle: errand
+  vm_type: default
+  stemcell: default
+  networks: [{name: default}]
+  jobs:
+  - name: sanity-test
+    release: gogs
 
 properties:
   gogs:
+    admin:    gogs
     password: ((gogs-password))
     tls_cert: ((gogs-tls.certificate))
     tls_key: ((gogs-tls.private_key))

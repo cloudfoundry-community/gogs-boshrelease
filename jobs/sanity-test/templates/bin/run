@@ -1,0 +1,18 @@
+#!/bin/bash
+
+exec 2>&1
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Setup env vars and folders for the errand script
+source /var/vcap/jobs/sanity-test/helpers/ctl_setup.sh 'sanity-test'
+
+############################################################################
+
+export gogs_url=<%= p("gogs.protocol") %>://<%= p("gogs.domain") %>
+export admin_username="<%= ('gogs.admin') %>"
+export admin_password="<%= ('gogs.password') %>"
+
+curl -k $gogs_url > /dev/null
+curl -k $gogs_url/user/login > /dev/null

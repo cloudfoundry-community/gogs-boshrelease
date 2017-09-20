@@ -1,0 +1,19 @@
+---
+name: sanity-test
+packages: []
+templates:
+  bin/run: bin/run
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+properties:
+  gogs.domain:
+    description: The URL domain to access Gogs
+  gogs.protocol:
+    description: http or https
+    default: https
+
+  gogs.admin:
+    description: "Admin user for gogs"
+    default: 'gogs'
+  gogs.password:
+    description: "Password for admin user"

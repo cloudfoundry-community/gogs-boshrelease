@@ -24,10 +24,6 @@
   value: ((gogs-uri))
 
 - type: replace
-  path: /properties?/gogs/protocol
-  value: http
-
-- type: replace
   path: /releases/-
   value:
     name: routing
