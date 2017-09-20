@@ -13,7 +13,7 @@ HTTP_PORT = <%= p("gogs.port") %>
 
 <% db = p("databases.databases").find { |db| db["tag"] == "gogs" } %>
 <% db_role = p("databases.roles").find { |role| role["tag"] == "gogs" } %>
-ROOT_URL = <%= p("gogs.protocol")%>://<%= p("gogs.domain")%>
+ROOT_URL = <%= p("gogs.protocol")%>://<%= p("gogs.domain", spec.address)%>
 DISABLE_SSH = false
 SSH_PORT = 22
 SSH_ROOT_PATH = /var/vcap/store/gogs/home/.ssh
