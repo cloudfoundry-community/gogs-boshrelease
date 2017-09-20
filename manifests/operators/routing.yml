@@ -20,12 +20,12 @@
           - ((gogs-uri))
 
 - type: replace
-  path: /instance_groups/name=gogs/jobs/name=gogs/properties?/gogs/domain
+  path: /properties?/gogs/domain
   value: ((gogs-uri))
 
 - type: replace
-  path: /instance_groups/name=gogs/jobs/name=gogs/properties?/gogs/protocol
-  value: https
+  path: /properties?/gogs/protocol
+  value: http
 
 - type: replace
   path: /releases/-
