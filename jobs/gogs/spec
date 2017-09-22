@@ -28,6 +28,9 @@ properties:
   gogs.protocol:
     descripton: "http or https for gogs web"
     default: 'http'
+  gogs.ssh_port:
+    description: "Port for Gogs SSH"
+    default: '2222'
   gogs.admin:
     description: "Admin user for gogs"
     default: 'gogs'
