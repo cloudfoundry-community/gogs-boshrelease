@@ -9,7 +9,7 @@ chown git $BBR_ARTIFACT_DIRECTORY
 BBR_ARTIFACT_FILE_PATH=$(find $BBR_ARTIFACT_DIRECTORY -type f -name 'gogs-backup-*.zip')
 cd $BBR_ARTIFACT_DIRECTORY
 rm -rf /var/vcap/store/gogs/config.bak
-sudo -E -u git /var/vcap/packages/gogs/gogs restore \
+sudo -E -u git -g vcap /var/vcap/packages/gogs/gogs restore \
      --config $GOGS_CUSTOM/app.ini \
      -v \
      -t $GOGS_TMP \
