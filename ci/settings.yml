@@ -120,3 +120,4 @@ resources:
       user:         gogits
       repository:   gogs
       access_token: (( grab meta.github.access_token ))
+      check_every: 30m
