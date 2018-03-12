@@ -30,6 +30,9 @@ properties:
   gogs.ssh_port:
     description: "Port for Gogs SSH"
     default: '2222'
+  gogs.start_ssh_server:
+    description: "Start SSH Server"
+    default: "true"
   gogs.admin:
     description: "Admin user for gogs"
     default: 'gogs'
