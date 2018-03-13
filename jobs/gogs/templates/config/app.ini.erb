@@ -17,7 +17,7 @@ ROOT_URL = <%= p("gogs.protocol")%>://<%= p("gogs.domain", spec.address)%>
 DISABLE_SSH = false
 SSH_PORT = <%= p("gogs.ssh_port") %>
 SSH_ROOT_PATH = /var/vcap/store/gogs/home/.ssh
-START_SSH_SERVER = false
+START_SSH_SERVER = <%= p("gogs.start_ssh_server") %>
 OFFLINE_MODE = false
 <% if_p("gogs.tls_cert") do %>
 CERT_FILE=/var/vcap/jobs/gogs/config/gogs.crt
