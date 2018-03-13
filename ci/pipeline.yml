@@ -351,6 +351,7 @@ resources:
       private_key:  (( grab meta.github.private_key ))
       repo:         (( concat meta.github.owner "/" meta.github.repo ))
       base:         (( grab meta.github.branch ))
+      check_every: 30m
 
   - name: version
     type: semver
