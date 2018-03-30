@@ -11,26 +11,32 @@ One of the fastest ways to get [gogs](http://gogs.io/) running on any infrastruc
 
 To use this bosh release, first upload it to your bosh:
 
-```
+```plain
 export BOSH_ENVIRONMENT=<alias>
 export BOSH_DEPLOYMENT=gogs
 
 git clone https://github.com/cloudfoundry-community/gogs-boshrelease.git
-cd gogs-boshrelease
-bosh deploy manifests/gogs.yml
+bosh deploy gogs-boshrelease/manifests/gogs.yml
+```
+
+The `bosh deploy` command will run the `packages/git/packaging` script in your BOSH environment, which will require egress Internet access to `apt-get install` remote packages. If your BOSH environment is offline, you can use the pre-compile release:
+
+```plain
+bosh deploy gogs-boshrelease/manifests/gogs.yml \
+  -o gogs-boshrelease/manifests/operators/use-compiled-releases.yml
 ```
 
 If your BOSH does not have Credhub/Config Server, then remember ` --vars-store` to allow generation of passwords and certificates:
 
-```
-bosh deploy manifests/gogs.yml --vars-store tmp/creds.yml
+```plain
+bosh deploy gogs-boshrelease/manifests/gogs.yml --vars-store gogs-boshrelease/tmp/creds.yml
 ```
 
 To register a route via your Cloud Foundry load balancer + router, you can use `manifests/operators/routing.yml`. If your Cloud Foundry deployment name is `cf`, and your system domain is `system.ourcompany.com`:
 
-```
-bosh deploy manifests/gogs.yml \
-  -o manifests/operators/routing.yml \
+```plain
+bosh deploy gogs-boshrelease/manifests/gogs.yml \
+  -o gogs-boshrelease/manifests/operators/routing.yml \
   -v routing-nats-deployment=cf \
   -v gogs-uri=gogs.system.ourcompany.com
 ```
@@ -41,9 +47,9 @@ You could also dynamically look up your system domain:
 cf_deployment=cf
 system_domain=$(bosh -d $cf_deployment manifest | bosh int - --path /instance_groups/name=api/jobs/name=cloud_controller_ng/properties/system_domain)
 
-bosh deploy manifests/gogs.yml \
-   --vars-store tmp/creds.yml \
-  -o manifests/operators/routing.yml \
+bosh deploy gogs-boshrelease/manifests/gogs.yml \
+  -o gogs-boshreleasemanifests/operators/routing.yml \
+  --vars-store tmp/creds.yml \
   -v routing-nats-deployment=$cf_deployment \
   -v "gogs-uri=gogs.$system_domain"
 
