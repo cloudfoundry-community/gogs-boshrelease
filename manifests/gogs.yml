@@ -7,7 +7,7 @@ instance_groups:
   instances: 1
   vm_type: default
   stemcell: default
-  persistent_disk_type: 1GB
+  persistent_disk: 10_240
   networks: [{name: default}]
   jobs:
   - name: postgres
