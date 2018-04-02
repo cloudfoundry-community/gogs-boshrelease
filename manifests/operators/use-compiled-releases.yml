@@ -1,12 +1,12 @@
 - path: /releases/name=gogs/url
   type: replace
-  value: "https://s3.amazonaws.com/gogs-boshrelease/compiled-releases/gogs-5.2.2-ubuntu-trusty-3541.10-20180330-002241-061422332-20180330002243.tgz"
+  value: "https://s3.amazonaws.com/gogs-boshrelease/compiled-releases/gogs-5.2.3-ubuntu-trusty-3541.10-20180402-055926-490069687-20180402055928.tgz"
 - path: /releases/name=gogs/version
   type: replace
-  value: "5.2.2"
+  value: "5.2.3"
 - path: /releases/name=gogs/sha1
   type: replace
-  value: "819fcce5d893fd908187fda891fea77707106637"
+  value: "e7f4bb5a98217edf03828f23492b9099d1af926e"
 
 - path: /releases/name=gogs/stemcell?
   type: replace
