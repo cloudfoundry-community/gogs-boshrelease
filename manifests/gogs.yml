@@ -80,9 +80,9 @@ stemcells:
 
 releases:
 - name: gogs
-  sha1: 52c3bd69a7da6f48870ed8a01e79f431a6127938
+  sha1: a43d0d772e7ffdd4839ac3243a4e7aca81597cb8
   stemcell:
     os: ubuntu-trusty
     version: "3586.16"
-  url: https://github.com/cloudfoundry-community/gogs-boshrelease/releases/download/v5.2.4/gogs-5.2.4.tgz
+  url: https://s3.amazonaws.com/gogs-boshrelease/compiled-releases/gogs/gogs-5.2.4-ubuntu-trusty-3586.16-20180603-225257-524640581-20180603225259.tgz
   version: 5.2.4
