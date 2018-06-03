@@ -19,13 +19,6 @@ git clone https://github.com/cloudfoundry-community/gogs-boshrelease.git
 bosh deploy gogs-boshrelease/manifests/gogs.yml
 ```
 
-The `bosh deploy` command will run the `packages/git/packaging` script in your BOSH environment, which will require egress Internet access to `apt-get install` remote packages. If your BOSH environment is offline, you can use the pre-compile release:
-
-```plain
-bosh deploy gogs-boshrelease/manifests/gogs.yml \
-  -o gogs-boshrelease/manifests/operators/use-compiled-releases.yml
-```
-
 If your BOSH does not have Credhub/Config Server, then remember ` --vars-store` to allow generation of passwords and certificates:
 
 ```plain
