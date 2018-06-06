@@ -2,10 +2,10 @@ git/git-v2.3.0.tar.gz:
   size: 5168085
   object_id: 2bcdc2e0-e8a2-4a55-b266-55689c77cad2
   sha: ae668cef3b9a4955f496ce41fefb058b5368d52f
-gogs/gogs_linux_amd64_v0.11.43.tar.gz:
-  size: 19214809
-  object_id: 8834a649-a945-465b-41b5-04f7eaca4e0d
-  sha: bfe738c9cc9a987d7acbcfa3f65dfe803843d1af
+gogs/gogs_linux_amd64_v0.11.53.tar.gz:
+  size: 19322398
+  object_id: bb0fe477-dfda-4bb5-6ea0-9462dbb2826c
+  sha: e941ce9105c9d5946248eb2607580b7c4d74bb76
 postgresql/postgresql-9.4.1.tar.gz:
   size: 23004433
   object_id: e7b71326-e4a4-4253-b702-bedd2b3142a6
