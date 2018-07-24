@@ -1,17 +1,7 @@
-set -e -x
+set -ex
 
-apt-get update -y
-apt-get install automake libexpat1-dev libz-dev gettext curl -y
-
-export VERSION=2.3.0
-
-cd git
-
-tar -zxf git-v${VERSION}.tar.gz
-
-cd git-${VERSION}
-
-make configure
-./configure  --prefix=${BOSH_INSTALL_TARGET} CFLAGS="${CFLAGS} -static" NO_OPENSSL=1 NO_CURL=1
-make
+tar -xzvf git/git-2.18.0.tar.gz
+cd git-2.18.0
+./configure --prefix=${BOSH_INSTALL_TARGET}
+make all
 make install
