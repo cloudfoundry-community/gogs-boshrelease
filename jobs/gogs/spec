@@ -48,6 +48,9 @@ properties:
   gogs.tls_key:
     description: "Private key TLS for gogs web"
 
+  databases.type:
+    description: "The database type you choose, either mysql, postgres, mssql or sqlite3."
+    default: postgres
   databases.port:
     description: "The database port"
     default: 5432

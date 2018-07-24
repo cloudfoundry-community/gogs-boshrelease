@@ -27,7 +27,7 @@ KEY_FILE=/var/vcap/jobs/gogs/config/gogs.key
 <% end -%>
 
 [database]
-DB_TYPE = postgres
+DB_TYPE = <%= p("databases.type") %>
 HOST = <%= p("databases.address") %>:<%= p("databases.port") %>
 NAME = <%= db["name"] %>
 USER = <%= db_role["name"] %>
