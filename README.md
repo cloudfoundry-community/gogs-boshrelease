@@ -21,7 +21,10 @@ git clone https://github.com/cloudfoundry-community/gogs-boshrelease.git
 bosh -d gogs deploy gogs-boshrelease/manifests/gogs.yml \
   -o gogs-boshrelease/manifests/operators/routing.yml \
   -v routing-nats-deployment=cf \
-  -v gogs-uri=gogs.v3.pcfdev.io
+  -v gogs-uri=gogs.v3.pcfdev.io \
+  --vars-store creds.yml
 
 open https://gogs.v3.pcfdev.io/user/sign_up
 ```
+
+Note: `--vars-store creds.yml` is not required if your BOSH environment is configured with Credhub.
