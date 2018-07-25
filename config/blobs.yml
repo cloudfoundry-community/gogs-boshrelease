@@ -1,7 +1,7 @@
 git/git-2.18.0.tar.gz:
-  size: 7496573
-  object_id: 6ab013d0-9f88-4784-7d32-430973aa6a20
-  sha: 753aa149982f2c61475553ee6309977a0313db37
+  size: 7498807
+  object_id: 89500a89-ee20-4783-64af-dbac1c9cc9fd
+  sha: a7687c34d308b0e3d566a7d083edaca5fa92f834
 gogs/gogs_linux_amd64_v0.11.53.tar.gz:
   size: 19322398
   object_id: bb0fe477-dfda-4bb5-6ea0-9462dbb2826c
