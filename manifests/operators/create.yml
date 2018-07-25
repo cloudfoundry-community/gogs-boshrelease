@@ -3,4 +3,5 @@
   path: /releases/name=gogs
   value:
     name: gogs
-    version: latest
+    version: create
+    url: file://.
