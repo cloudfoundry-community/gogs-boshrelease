@@ -6,7 +6,7 @@ set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
 # Setup env vars and folders for the errand script
-source /var/vcap/jobs/sanity-test/helpers/ctl_setup.sh 'sanity-test'
+source /var/vcap/jobs/sanity_test/helpers/ctl_setup.sh sanity_test
 
 ############################################################################
 

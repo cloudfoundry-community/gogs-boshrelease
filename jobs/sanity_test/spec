@@ -1,5 +1,5 @@
 ---
-name: sanity-test
+name: sanity_test
 packages: []
 templates:
   bin/run: bin/run
