@@ -118,7 +118,7 @@ resources:
   - name: gogs
     type: github-release
     source:
-      user:         gogits
+      owner:        gogs
       repository:   gogs
       access_token: (( grab meta.github.access_token ))
       check_every: 30m
