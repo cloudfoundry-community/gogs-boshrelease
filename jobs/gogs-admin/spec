@@ -1,0 +1,17 @@
+---
+name: gogs-admin
+
+templates:
+  run.sh.erb: bin/run
+
+packages: []
+
+properties:
+  gogs.admin:
+    description: "Admin user for gogs"
+    default: 'gogs'
+  gogs.password:
+    description: "Password for admin user"
+  gogs.email:
+    description: "Email for admin account"
+    default: 'admin@example.com'

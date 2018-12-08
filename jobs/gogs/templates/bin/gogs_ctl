@@ -56,14 +56,6 @@ case $1 in
          >>$LOG_DIR/$JOB_NAME.stdout.log \
          2>>$LOG_DIR/$JOB_NAME.stderr.log
 
-    # Create admin user for the initial
-    su git -c "${PACKAGE_DIR}/gogs admin create-user \
-		      --name <%= p('gogs.admin') %> \
-		      --password <%= p('gogs.password') %> \
-		      --email <%= p('gogs.email') %> \
-                      --admin \
-		      --config ${STORE_DIR}/config/app.ini"
-
     ;;
 
   stop)
