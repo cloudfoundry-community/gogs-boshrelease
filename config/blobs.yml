@@ -2,10 +2,10 @@ git/git-2.18.0.tar.gz:
   size: 7498807
   object_id: 89500a89-ee20-4783-64af-dbac1c9cc9fd
   sha: a7687c34d308b0e3d566a7d083edaca5fa92f834
-gogs/gogs_linux_amd64_v0.11.66.tar.gz:
-  size: 20407040
-  object_id: a9c273b8-f5e2-4a63-7424-a2ee6110aac9
-  sha: 8f1f3c2dd6c8bcb2c1a3ce85b507ec1d8b2120b1
+gogs/gogs_linux_amd64_v0.11.79.tar.gz:
+  size: 20421115
+  object_id: 3d80a354-26aa-4f3a-54f6-316ddd2e18d9
+  sha: a000998542ad2a97bfc6ef99768bd90111cbccb0
 postgresql/postgresql-9.4.1.tar.gz:
   size: 23004433
   object_id: e7b71326-e4a4-4253-b702-bedd2b3142a6
