@@ -28,3 +28,11 @@ open https://gogs.v3.pcfdev.io/user/sign_up
 ```
 
 Note: `--vars-store creds.yml` is not required if your BOSH environment is configured with Credhub.
+
+## Post Deploy Errand
+To create an admin user after deploying GOGS, run the following errand.
+
+This was moved from the `gogs_ctl` script to this errand as it was never executed previously
+```
+bosh -d gogs run-errand gogs-admin
+```

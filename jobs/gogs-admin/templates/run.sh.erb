@@ -1,0 +1,12 @@
+#!/bin/bash
+
+export PACKAGE_DIR=/var/vcap/packages/gogs
+export STORE_DIR=/var/vcap/store/gogs
+
+# Create admin user for the initial
+su - git -c "${PACKAGE_DIR}/gogs admin create-user \
+  --name <%= p('gogs.admin') %> \
+  --password <%= p('gogs.password') %> \
+  --email <%= p('gogs.email') %> \
+  --admin \
+  --config ${STORE_DIR}/config/app.ini"

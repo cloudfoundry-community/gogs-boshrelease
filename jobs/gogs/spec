@@ -33,14 +33,6 @@ properties:
   gogs.start_ssh_server:
     description: "Start SSH Server"
     default: "true"
-  gogs.admin:
-    description: "Admin user for gogs"
-    default: 'gogs'
-  gogs.password:
-    description: "Password for admin user"
-  gogs.email:
-    description: "Email for admin account"
-    default: 'admin@example.com'
   gogs.secret_key:
     description: "Global secret key for your server security"
   gogs.tls_cert:
