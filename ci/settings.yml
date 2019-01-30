@@ -20,14 +20,14 @@ meta:
       deployment_name: cf
       system_domain: ((bosh-lite-cf-system-domain))
 
-  manifest:
-    operator_file_paths: manifests/operators/routing.yml
-    vars: (( concat
-      "\nrouting-nats-deployment=" meta.bosh-lite.cf.deployment_name
-      "\ngogs-uri=gogs-testflight." meta.bosh-lite.cf.system_domain ))
-    vars-pr: (( concat
-      "\nrouting-nats-deployment=" meta.bosh-lite.cf.deployment_name
-      "\ngogs-uri=gogs-testflight-pr." meta.bosh-lite.cf.system_domain ))
+  # manifest:
+  #   operator_file_paths: manifests/operators/routing.yml
+  #   vars: (( concat
+  #     "\nrouting-nats-deployment=" meta.bosh-lite.cf.deployment_name
+  #     "\ngogs-uri=gogs-testflight." meta.bosh-lite.cf.system_domain ))
+  #   vars-pr: (( concat
+  #     "\nrouting-nats-deployment=" meta.bosh-lite.cf.deployment_name
+  #     "\ngogs-uri=gogs-testflight-pr." meta.bosh-lite.cf.system_domain ))
 
   aws:
     bucket: (( grab meta.pipeline ))
