@@ -40,12 +40,15 @@ bosh -d gogs run-errand gogs-admin
 ## Deploy with Authentication Backends
 You can deploy gogs with alternative authentication backends.
 
-The supported backend types are available [on the gogs website](https://gogs.io/docs/features/authentication) with examples for each [here](https://github.com/gogs/gogs/tree/f2ecfdc96a338815ffb2be898b3114031f0da48c/conf/auth.d).
+The supported backend types are available [on the gogs website](https://gogs.io/docs/features/authentication) with examples of the configuration options each have [here](https://github.com/gogs/gogs/tree/f2ecfdc96a338815ffb2be898b3114031f0da48c/conf/auth.d).
 
-You can modify the operators files with multiple backends for each type, and using the examples in the gogs repository, and the example operators in this repository you can see how to add them. You can also add multiple backends of the same type
+Using the configuration options examples, and the operator files in `manifests/operators` in this repository, you can craft different backends to use.
+
+Deploy example with operator file:
 ```
 bosh -d gogs deploy gogs-boshrelease/manifests/gogs.yml \
-  -o gogs-boshrelease/manifests/operators/ldap_auth.yml \
+  -o gogs-boshrelease/manifests/operators/ldap-auth.yml \
   -v gogs-uri=gogs.v3.pcf.dev.io \
   --vars-store creds.yml
 ```
+It is possible to specify multiple backends of the same type, see `manifests/operators/ldap-auth-multiple.yml` for an example.
