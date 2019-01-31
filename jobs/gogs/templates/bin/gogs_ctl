@@ -21,6 +21,29 @@ case $1 in
 
     mkdir -p ${STORE_DIR}/{home,repositories,avatars,attachments,sessions,config,tmp}
 
+    # Remove any old authentication configs that may have been deployed
+		# This lives in the package directory as "gogs web" is run in
+    # the work directory 'cd ${PACKAGE_DIR}'
+    mkdir -p ${PACKAGE_DIR}/custom/conf/auth.d
+    rm -rf ${PACKAGE_DIR}/custom/conf/auth.d/*.conf
+
+		# Generate new configuration files
+<%- if_p('authentication') do |auths| -%>
+  <%- auths.each do |auth| -%>
+    <%- types = auth.fetch('type', []) %>
+cat << EOF > ${PACKAGE_DIR}/custom/conf/auth.d/<%= types['id'] %>.conf
+    <%- types.each_pair do |k, v| -%>
+<%= "#{k} = #{v}" %>
+    <%- end -%>
+[config]
+    <%- configs = auth.fetch('config', []) %>
+    <%- configs.each_pair do |k, v| -%>
+<%= "#{k} = #{v}" %>
+    <%- end -%>
+EOF
+  <%- end -%>
+<%- end -%>
+
     if id git >/dev/null 2>&1; then
       echo "user git exists"
     else

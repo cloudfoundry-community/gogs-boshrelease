@@ -65,3 +65,47 @@ properties:
         - name: gogs
           password: MyGogsPassword
           tag: gogs
+
+  authentication:
+    description: "A list of authentication backends to add"
+    optional: true
+    example: |
+      - type:
+          name: LDAP
+          id: 101
+          type: ldap_bind_dn
+          is_activated: true
+          is_default: true
+        config:
+          host: 10.244.0.100
+          port: 389
+          security_protocol: 0
+          skip_verify: true
+          bind_dn: cn=binduser,dc=example,dc=org
+          bind_password: bindpassword
+          user_base: dc=example,dc=org
+          attribute_username: uid
+          attribute_name: givenName
+          attribute_surname: sn
+          attribute_mail: mail
+          attributes_in_bind:
+          filter: (&(objectClass=inetOrgPerson)(|(uid=%s)(mail=%s)))
+          admin_filter:
+          group_enabled: false
+          group_dn:
+          group_filter:
+          group_member_uid:
+          user_uid:
+      - type:
+          name: GMail
+          id: 102
+          type: smtp
+          is_activated: true
+          is_default: false
+        config:
+          auth: PLAIN
+          host: smtp.gmail.com
+          port: 587
+          allowed_domains:
+          tls: true
+          skip_verify: false

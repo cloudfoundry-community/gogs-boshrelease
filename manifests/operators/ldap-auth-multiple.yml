@@ -1,0 +1,61 @@
+---
+- type: replace
+  path: /properties/authentication?/-
+  value:
+    type:
+      name: "LDAP BindDN"
+      id: "101"
+      type: "ldap_bind_dn"
+      is_activated: "true"
+      is_default: "true"
+    config:
+      host: "10.244.0.101"
+      port: "389"
+      security_protocol: "0"
+      skip_verify: "true"
+      bind_dn: "cn=admin,dc=pivotal,dc=org"
+      bind_password: "examplebindpass"
+      user_base: "dc=pivotal,dc=org"
+      attribute_username: uid
+      attribute_name: givenName
+      attribute_surname: sn
+      attribute_mail: mail
+      attributes_in_bind:
+      filter: "(&(objectClass=inetOrgPerson)(|(uid=%s)(mail=%s)))"
+      admin_filter: "(&(objectClass=inetOrgPerson)(|(uid=%s)(mail=%s)))"
+      group_enabled: "false"
+      group_dn: ""
+      group_filter: ""
+      group_member_uid: ""
+      user_uid: ""
+
+- type: replace
+  path: /properties/authentication?/-
+  value:
+    type:
+      name: "LDAP 2 BindDN"
+      id: "102"
+      type: "ldap_bind_dn"
+      is_activated: "true"
+      is_default: "false"
+    config:
+      host: "10.244.0.102"
+      port: "389"
+      security_protocol: "0"
+      skip_verify: "true"
+      bind_dn: "cn=admin,dc=example,dc=org"
+      bind_password: "examplebindpass"
+      user_base: "dc=example,dc=org"
+      attribute_username: uid
+      attribute_name: givenName
+      attribute_surname: sn
+      attribute_mail: mail
+      attributes_in_bind:
+      filter: "(&(objectClass=inetOrgPerson)(|(uid=%s)(mail=%s)))"
+      admin_filter: "(&(objectClass=inetOrgPerson)(|(uid=%s)(mail=%s)))"
+      group_enabled: "false"
+      group_dn: ""
+      group_filter: ""
+      group_member_uid: ""
+      user_uid: ""
+
