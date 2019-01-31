@@ -27,7 +27,7 @@ case $1 in
     mkdir -p ${PACKAGE_DIR}/custom/conf/auth.d
     rm -rf ${PACKAGE_DIR}/custom/conf/auth.d/*.conf
 
-		# Generate new configuration files into the appropriate locations
+    # Generate new configuration files into the appropriate locations
     # It uses key=value pairs that match exactly what is defined in the gogs authentication examples
 <%- if_p('authentication') do |auths| -%>
   <%- auths.each do |auth| -%>
