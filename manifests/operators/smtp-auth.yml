@@ -1,0 +1,16 @@
+---
+- type: replace
+  path: /properties/authentication?/-
+  value:
+    type:
+      name: "GMail"
+      id: "103"
+      type: "smtp"
+      is_activated: "true"
+      is_default: "false"
+    config:
+      auth: PLAIN
+      host: smtp.gmail.com
+      port: 587
+      allowed_domains:
+      tls: true
