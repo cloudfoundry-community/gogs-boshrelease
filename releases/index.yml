@@ -29,6 +29,8 @@ builds:
     version: "3"
   d9c50210-3d7b-4265-4636-ee4526baccc7:
     version: 5.2.3
+  dcef8927-ca31-48a0-4eb3-f4073ae01d34:
+    version: 5.5.0
   eb05c07f-e3da-4f68-79e5-ce4ce8a84e0c:
     version: 5.2.2
 format-version: "2"
