@@ -40,9 +40,8 @@ jobs:
 - name: gogs
   public: true
   plan:
-  - aggregate:
-    - { get: git }
-    - { get: gogs, trigger: true, params: { globs: [linux_amd64.tar.gz] }}
+  - { get: git }
+  - { get: gogs, trigger: true, params: { globs: [linux_amd64.tar.gz] }}
   - task: update-gogs
     config:
       image_resource:
