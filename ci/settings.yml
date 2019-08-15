@@ -11,24 +11,6 @@ meta:
     email:  ((git-commit-email))
     name:   ((git-commit-name))
 
-  bosh-lite:
-    target:   ((bosh-lite-environment))
-    cacert:   ((bosh-lite-ca-cert))
-    username: ((bosh-lite-client))
-    password: ((bosh-lite-client-secret))
-    cf:
-      deployment_name: cf
-      system_domain: ((bosh-lite-cf-system-domain))
-
-  # manifest:
-  #   operator_file_paths: manifests/operators/routing.yml
-  #   vars: (( concat
-  #     "\nrouting-nats-deployment=" meta.bosh-lite.cf.deployment_name
-  #     "\ngogs-uri=gogs-testflight." meta.bosh-lite.cf.system_domain ))
-  #   vars-pr: (( concat
-  #     "\nrouting-nats-deployment=" meta.bosh-lite.cf.deployment_name
-  #     "\ngogs-uri=gogs-testflight-pr." meta.bosh-lite.cf.system_domain ))
-
   aws:
     bucket: (( grab meta.pipeline ))
     access_key: ((aws-cfcommunity-access))
