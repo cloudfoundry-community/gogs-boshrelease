@@ -82,9 +82,9 @@ stemcells:
 
 releases:
 - name: gogs
-  sha1: 2c0d651f81d8f58d42075e56267d2b39185abbd4
+  sha1: c6ed95dc11099c3654334c95e853e90a130e7274
   stemcell:
     os: ubuntu-xenial
     version: "456.3"
-  url: https://github.com/cloudfoundry-community/gogs-boshrelease/releases/download/v5.5.2/gogs-5.5.2.tgz
+  url: https://s3.amazonaws.com/gogs-boshrelease/compiled-releases/gogs/gogs-5.5.2-ubuntu-xenial-456.3-20190815-183645-534877247-20190815183648.tgz
   version: 5.5.2
