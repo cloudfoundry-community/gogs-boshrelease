@@ -36,9 +36,7 @@ popd
 if [[ -n "$(cd ${REPO_ROOT}; git status --porcelain)" ]]; then
   pushd ${REPO_ROOT}
   cat <<EOF >>ci/release_notes.md
-
-# ${BLOB_NAME}
-Bumped ${BLOB_URL} to v${VERSION}
+* Bumped ${BLOB_URL} to v${VERSION}
 EOF
   popd
 
