@@ -35,6 +35,7 @@ groups:
 - name: blobs
   jobs:
   - gogs
+  - git-release
 
 jobs:
 - name: gogs
@@ -95,6 +96,64 @@ jobs:
         icon_url: (( grab meta.slack.icon ))
         text:     (( grab meta.slack.blob_failure ))
 
+- name: git-release
+  public: true
+  plan:
+  - { get: git }
+  - { get: git-release, trigger: true, params: {include_source_tarball: true} }
+  - task: update-git
+    config:
+      image_resource:
+        type: docker-image
+        source:
+          repository: (( grab meta.image.name ))
+          tag:        (( grab meta.image.tag ))
+      platform: linux
+      inputs:
+      - name: git
+      - name: git-release
+      outputs:
+      - name: pushme
+      run:
+        path: ./git/ci/scripts/update-blob
+      params:
+        REPO_ROOT:   git
+        REPO_OUT:    pushme
+        BLOB_DIR:    git-release
+        BLOB_NAME:   git
+        BLOB_BINARY: "*.tar.gz"
+        BLOB_URL:    https://github.com/git/git
+        BLOB_CLEANUP:     git/git*.tar.gz
+        BLOB_DESTINATION: git/git-${VERSION}.tar.gz
+        AWS_ACCESS_KEY: (( grab meta.aws.access_key ))
+        AWS_SECRET_KEY: (( grab meta.aws.secret_key ))
+        BRANCH:         (( grab meta.github.branch ))
+    on_failure:
+      put: notify
+      params:
+        channel:  (( grab meta.slack.channel ))
+        username: (( grab meta.slack.username ))
+        icon_url: (( grab meta.slack.icon ))
+        text:     (( grab meta.slack.blob_failure ))
+  # - put: git
+  #   params:
+  #     rebase: true
+  #     repository: pushme/git
+  #   on_success:
+  #     put: notify
+  #     params:
+  #       channel:  (( grab meta.slack.channel ))
+  #       username: (( grab meta.slack.username ))
+  #       icon_url: (( grab meta.slack.icon ))
+  #       text:     (( grab meta.slack.blob_success ))
+  #   on_failure:
+  #     put: notify
+  #     params:
+  #       channel:  (( grab meta.slack.channel ))
+  #       username: (( grab meta.slack.username ))
+  #       icon_url: (( grab meta.slack.icon ))
+  #       text:     (( grab meta.slack.blob_failure ))
+
 resources:
   - name: gogs
     type: github-release
@@ -103,3 +162,9 @@ resources:
       repository:   gogs
       access_token: (( grab meta.github.access_token ))
       check_every: 30m
+
+  - name: git-release
+    type: git
+    source:
+      uri:          https://github.com/git/git.git
+      tag_filter:   "v*"
