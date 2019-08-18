@@ -14,11 +14,10 @@ set -e
 [[ -f ${BLOB_DIR}/version ]] || {
   # Perhaps move this into helper script that creates a github-release style folder
   resource_dir=${BLOB_NAME}-${tag//v/}
-  mv ${BLOB_DIR} ${resource_dir}
+  git clone ${BLOB_DIR} ${resource_dir}
   pushd ${resource_dir}
   tag=$(git describe --tags `git rev-list --tags --max-count=1`)
   popd
-  mkdir $BLOB_DIR
   echo ${tag}     > ${BLOB_DIR}/tag
   echo ${tag//v/} > ${BLOB_DIR}/version
   tar czf ${BLOB_DIR}/${BLOB_NAME}-${tag//v/}.tar.gz ${resource_dir}
