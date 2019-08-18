@@ -2,6 +2,10 @@ git/git-2.22.1.tar.gz:
   size: 8481979
   object_id: 91909fb0-dbac-4e89-78af-e9435d2728d2
   sha: sha256:83bf264bfa4573faddb396cbc7f5518db082f9573aa3c8ea08b8a30d23a46adc
+git/git-2.23.0.tar.gz:
+  size: 8647072
+  object_id: c2c960f2-9afb-41cf-7abb-2a0a9d136580
+  sha: sha256:990d60c14f40a0ef3460500c40c4fb85020db0d4cd3649617100f8362558d2f5
 gogs/gogs_linux_amd64_v0.11.91.tar.gz:
   size: 25690601
   object_id: 0cda086a-cf62-4126-666a-2614b6f15b3e
