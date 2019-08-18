@@ -1,7 +1,3 @@
-git/git-2.22.1.tar.gz:
-  size: 8481979
-  object_id: 91909fb0-dbac-4e89-78af-e9435d2728d2
-  sha: sha256:83bf264bfa4573faddb396cbc7f5518db082f9573aa3c8ea08b8a30d23a46adc
 git/git-2.23.0.tar.gz:
   size: 8647072
   object_id: c2c960f2-9afb-41cf-7abb-2a0a9d136580
