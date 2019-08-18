@@ -13,15 +13,15 @@ set -e
 # then convert v2.23.0 to VERSION=2.23.0
 [[ -f ${BLOB_DIR}/version ]] || {
   # Perhaps move this into helper script that creates a github-release style folder
-  pushd ${BLOB_DIR}
+  resource_dir=${BLOB_NAME}-${tag//v/}
+  mv ${BLOB_DIR} ${resource_dir}
+  pushd ${resource_dir}
   tag=$(git describe --tags `git rev-list --tags --max-count=1`)
   popd
-  new_blob_dir=${BLOB_NAME}-${tag//v/}
-  mkdir ${new_blob_dir}
-  echo ${tag}     > ${new_blob_dir}/tag
-  echo ${tag//v/} > ${new_blob_dir}/version
-  tar czf ${new_blob_dir}/${BLOB_NAME}-${tag//v/}.tar.gz ${BLOB_DIR}
-  BLOB_DIR=${new_blob_dir}
+  mkdir $BLOB_DIR
+  echo ${tag}     > ${BLOB_DIR}/tag
+  echo ${tag//v/} > ${BLOB_DIR}/version
+  tar czf ${BLOB_DIR}/${BLOB_NAME}-${tag//v/}.tar.gz ${resource_dir}
 }
 VERSION=$(cat ${BLOB_DIR}/version)
 
