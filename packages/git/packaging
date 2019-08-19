@@ -2,5 +2,6 @@ set -ex
 
 tar -xzvf git/git-2.*.tar.gz
 cd git-2.*
-make prefix=${BOSH_INSTALL_TARGET} all
-make prefix=${BOSH_INSTALL_TARGET} install
+./configure --prefix=${BOSH_INSTALL_TARGET}
+make all
+make install

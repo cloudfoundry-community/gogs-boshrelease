@@ -101,6 +101,30 @@ jobs:
   plan:
   - { get: git }
   - { get: git-release, trigger: true, params: {include_source_tarball: true} }
+  - task: fetch-git-download
+    config:
+      image_resource:
+        type: docker-image
+        source:
+          repository: (( grab meta.image.name ))
+          tag:        (( grab meta.image.tag ))
+      platform: linux
+      inputs:
+      - name: git-release
+      outputs:
+      - name: git-download
+      run:
+        path: bash
+        args:
+        - -ce
+        - |
+          cd git-release
+          tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          cd -
+          echo ${tag}     > git-download/tag
+          echo ${tag//v/} > git-download/version
+          curl -L -o git-download/git-${tag//v/}.tar.gz \
+            https://mirrors.edge.kernel.org/pub/software/scm/git/git-${tag//v/}.tar.gz
   - task: update-git
     config:
       image_resource:
@@ -111,7 +135,7 @@ jobs:
       platform: linux
       inputs:
       - name: git
-      - name: git-release
+      - name: git-download
       outputs:
       - name: pushme
       run:
@@ -119,7 +143,7 @@ jobs:
       params:
         REPO_ROOT:   git
         REPO_OUT:    pushme
-        BLOB_DIR:    git-release
+        BLOB_DIR:    git-download
         BLOB_NAME:   git
         BLOB_BINARY: "*.tar.gz"
         BLOB_URL:    https://github.com/git/git
