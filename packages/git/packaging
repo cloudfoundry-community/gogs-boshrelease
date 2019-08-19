@@ -2,6 +2,7 @@ set -ex
 
 tar -xzvf git/git-2.*.tar.gz
 cd git-2.*
+make configure
 ./configure --prefix=${BOSH_INSTALL_TARGET}
 make all
 make install
