@@ -2,7 +2,7 @@ set -e -x
 
 CPUS=$(grep -c ^processor /proc/cpuinfo)
 
-tar xfv postgresql/postgresql-9.4.1.tar.gz
-cd postgresql-9.4.1
+tar xfv postgresql/postgresql-*.tar.gz
+cd postgresql-*
 ./configure --prefix=${BOSH_INSTALL_TARGET}
 make -j${CPUS} && make install
