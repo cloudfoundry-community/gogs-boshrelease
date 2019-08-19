@@ -27,6 +27,8 @@ builds:
     version: 5.0.0
   8f3444d3-3601-46e8-734d-241ae556b36a:
     version: 5.2.1
+  a968a06c-57ce-435d-4415-3bc3502b173a:
+    version: 5.5.3
   ace3226f-5d22-4268-9282-4585d5af4f04:
     version: "2"
   b8e5c67b-fa71-417b-b7e5-fc45c6f12c40:
