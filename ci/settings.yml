@@ -168,3 +168,4 @@ resources:
     source:
       uri:          https://github.com/git/git.git
       tag_filter:   "v*"
+      check_every: 30m
