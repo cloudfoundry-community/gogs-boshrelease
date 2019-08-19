@@ -75,13 +75,15 @@ groups:
       - pre
       - rc
       - shipit
-      - compile-release
-      - use-compiled-releases
   - name: versioning
     jobs:
       - major
       - minor
       - patch
+  - name: compiled-releases
+    jobs:
+      - compile-release
+      - use-compiled-releases
 
 jobs:
   - name: testflight
