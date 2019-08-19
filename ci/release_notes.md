@@ -1,0 +1,1 @@
+* `manifests/gogs.yml` switched from `vm_type` to `vm_resources` to describe resources for instance

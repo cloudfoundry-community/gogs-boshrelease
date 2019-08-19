@@ -5,7 +5,10 @@ instance_groups:
 - name: gogs
   azs: [z1]
   instances: 1
-  vm_type: default
+  vm_resources:
+    cpu: 1
+    ram: 1024
+    ephemeral_disk_size: 10240
   stemcell: default
   persistent_disk: 10_240
   networks: [{name: default}]
