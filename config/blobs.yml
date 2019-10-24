@@ -1,6 +1,6 @@
-git/git-2.24.0-rc0.tar.gz:
+git/git-2.24.0-rc1.tar.gz:
   size: 311
-  object_id: 5718e360-70f3-4ec8-4f8c-c12ae5351f99
+  object_id: 3fa66c72-988e-4ae2-4f81-458243a07df5
   sha: sha256:255f462758db0d3d11ec17df797d97d8144e7a5ee24dbceacef16a70e1010b05
 gogs/gogs_linux_amd64_v0.11.91.tar.gz:
   size: 25690601
